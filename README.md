@@ -64,3 +64,17 @@ Per ulteriori informazioni o domande, contatta [il tuo nome] all'indirizzo email
 
 ## Licenza
 Questo progetto è concesso in licenza sotto la [MIT License](LICENSE).
+
+
+
+# Diagrammi dei Casi d'Uso
+
+## 1. Diagramma degli Utenti
+![Diagramma degli Utenti](https://yuml.me/a57c0442.svg)
+
+## 2. Diagramma dell'Amministratore
+![Diagramma dell'Amministratore](https://yuml.me/ddaf9be1.svg)
+
+## 3. Diagramma del Supporto
+![Diagramma del Supporto](https://yuml.me/06a18122.svg)
+
