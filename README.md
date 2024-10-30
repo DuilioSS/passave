@@ -1,80 +1,115 @@
 # Password Manager
 
-## Introduzione
-Benvenuto nel progetto **Password Manager**, un sistema completo progettato per gestire le password in modo sicuro e conveniente. Questo strumento offre una vasta gamma di funzionalità per proteggere le informazioni sensibili degli utenti.
+## Panoramica
+Benvenuto nel progetto **Password Manager**, un'applicazione sicura e intuitiva pensata per aiutare gli utenti a gestire le proprie password in modo semplice ed efficace. Questo strumento offre una gamma completa di funzionalità per garantire che le informazioni sensibili siano protette e accessibili su più dispositivi.
 
-## Requisiti Funzionali
+### Gestione delle Password Semplificata
+Con Password Manager, gli utenti possono salvare, organizzare e accedere alle password su vari dispositivi e browser senza dover ricordare credenziali complesse. Grazie a protocolli di sicurezza avanzati, tutte le credenziali saranno sempre protette, semplificando la vita digitale dell'utente.
+
+## Target
+Questo strumento è destinato a professionisti, appassionati di informatica e persone attente alla sicurezza, che vogliono gestire le password in modo sicuro e organizzato.
+
+## Problema
+Gli utenti hanno spesso difficoltà nel gestire e accedere alle password in sicurezza su più dispositivi e browser. Password Manager risolve questi problemi fornendo una soluzione centralizzata e sicura.
+
+## Competitor
+I principali concorrenti includono LastPass, NordPass, 1Password, Dashlane, Kaspersky Password Manager, KeePass e Keeper.
+
+## Tecnologie
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: SQLite, Node.js
+- **Controllo Versione**: Git
+- **Altre**: Librerie crittografiche sicure
+
+---
+
+## Funzionalità
 
 ### 1. Notifiche via Email
-Gli utenti possono ricevere notifiche per aggiornamenti importanti via email.
+Ricevi notifiche per aggiornamenti di sicurezza, modifiche all’account o promemoria per aggiornare le password.
 
 ### 2. Autenticazione a Due Fattori (2FA)
-Supporto per l'autenticazione sicura tramite username, password e codice 2FA.
+Autenticazione migliorata tramite username, password e codice TOTP (one-time password).
 
-### 3. Generazione di Password
-Gli utenti possono generare password sicure con lunghezza specificata.
+### 3. Generatore di Password
+Genera password sicure e personalizzabili, con lunghezza e complessità specificate.
 
-### 4. Sincronizzazione Automatica
-Sincronizzazione delle password su più dispositivi.
+### 4. Sincronizzazione Multi-Dispositivo
+Sincronizzazione automatica su tutti i dispositivi collegati.
 
-### 5. Archiviazione Sicura dei Dati
-Archiviazione sicura delle password in un database crittografato.
+### 5. Archiviazione Crittografata
+Memorizza le password in un database crittografato per garantire la massima protezione.
 
-### 6. Accesso e Registrazione
-Possibilità di registrarsi e accedere al sistema in modo semplice.
+### 6. Registrazione e Accesso Utente
+Semplice registrazione e accesso, con supporto per il recupero delle credenziali.
 
 ### 7. Integrazione con il Browser
-Compilazione automatica delle password nei browser supportati.
+Compilazione automatica delle password sui browser supportati per un accesso facile.
 
-### 8. Sito Web Dedicato
-Accesso a un sito web dedicato per la gestione delle password.
+### 8. App Web Dedicata
+Accedi alla gestione delle password da un’interfaccia web sicura.
 
-### 9. Controllo Sicurezza Password
-Verifica della sicurezza delle password tramite avvisi di debolezza.
+### 9. Controllo di Sicurezza delle Password
+Valuta la sicurezza delle password e ricevi avvisi per password deboli o compromesse.
 
-### 10. Audit delle Attività
-Accesso a un registro delle attività per monitorare gli accessi e le azioni.
+### 10. Registro delle Attività
+Monitora le attività dell’account, come gli accessi e le modifiche alle password.
 
 ### 11. Ripristino dell’Accesso
-Recupero dell'accesso tramite email in caso di smarrimento delle credenziali.
+Recupera l'accesso tramite un processo sicuro di recupero via email.
 
 ### 12. Condivisione Sicura delle Password
-Funzionalità per condividere password in modo sicuro con altri utenti.
+Condividi le credenziali in modo sicuro con utenti fidati.
 
 ### 13. Interfaccia Utente Intuitiva
-Dashboard intuitiva per una facile navigazione.
+Dashboard intuitiva con navigazione chiara e design reattivo per mobile e desktop.
 
-### 14. Supporto Multi-Lingua
-Possibilità di impostare la lingua del sistema.
+### 14. Supporto Multilingua
+Seleziona tra diverse lingue per un’esperienza localizzata.
 
 ### 15. Monitoraggio della Sicurezza
-Monitoraggio attivo della sicurezza delle informazioni degli utenti.
+Monitoraggio proattivo per potenziali violazioni o attività sospette.
 
 ### 16. Backup e Ripristino
-Backup delle informazioni per garantire il recupero in caso di problemi.
+Backup regolari per garantire il recupero sicuro dei dati.
 
-### 17. Integrazione con Altri Servizi di Sicurezza
-Connessione a servizi di sicurezza come VPN per una protezione aggiuntiva.
+### 17. Integrazione con Altri Strumenti di Sicurezza
+Connessione a VPN o altri strumenti per una protezione avanzata.
 
-## Come Contribuire
-Se desideri contribuire a questo progetto, sentiti libero di forkare la repository e inviare pull request. Ogni contributo è benvenuto!
+### 18. Controllo Accessi Basato su Ruoli (RBAC)
+Definisci ruoli differenti (es. Admin, Utente, Ospite) con vari permessi di accesso per utilizzo aziendale o in team.
 
-## Contatti
-Per ulteriori informazioni o domande, contatta [il tuo nome] all'indirizzo email: tu@esempio.com.
+### 19. Credenziali Auto-Distruttive
+Opzione per condividere password che scadono dopo un utilizzo o un periodo di tempo specifico, ideale per accessi temporanei.
 
-## Licenza
-Questo progetto è concesso in licenza sotto la [MIT License](LICENSE).
+### 20. Accesso Offline
+Abilita una modalità offline di sola lettura con dati crittografati in locale.
 
+### 21. Impostazioni di Sicurezza Personalizzabili
+Consenti agli utenti di modificare timeout sessioni, richieste di riautenticazione e livelli di crittografia.
 
+### 22. Pannello di Sicurezza in Tempo Reale
+Dashboard con informazioni di sicurezza in tempo reale, come ultime violazioni, pratiche consigliate e azioni suggerite.
 
-# Diagrammi dei Casi d'Uso
+### 23. Accesso di Emergenza
+Contatti di fiducia che possono accedere all’account in caso di emergenze, con rigidi requisiti di verifica.
 
-## 1. Diagramma degli Utenti
-![Diagramma degli Utenti](https://yuml.me/a57c0442.svg)
+### 24. Integrazione con Sicurezza Biometrica
+Autenticazione biometrica per dispositivi supportati, per uno strato di sicurezza aggiuntivo.
 
-## 2. Diagramma dell'Amministratore
-![Diagramma dell'Amministratore](https://yuml.me/ddaf9be1.svg)
+### 25. Crittografia End-to-End per la Condivisione
+Garantisce che le credenziali condivise siano crittografate sia a riposo che durante il trasferimento.
 
-## 3. Diagramma del Supporto
-![Diagramma del Supporto](https://yuml.me/06a18122.svg)
+---
+
+## Diagrammi dei Casi d'Uso
+
+1. **Interazioni Utente**
+   ![Diagramma Utente](https://yuml.me/a57c0442.svg)
+
+2. **Panoramica Amministratore**
+   ![Diagramma Amministratore](https://yuml.me/ddaf9be1.svg)
+
+3. **Flusso di Supporto**
+   ![Diagramma Supporto](https://yuml.me/06a18122.svg)
 
