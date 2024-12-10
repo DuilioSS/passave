@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passave - Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Passave</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" href="dashboard.html">Dashboard</a></li>
+                        <li class="nav-item"><button class="btn btn-outline-light" id="logoutBtn">Logout</button></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container my-5">
+        <section class="dashboard">
+            <h1 class="mb-4">Welcome, <span id="usernameDisplay"></span>!</h1>
+            <div id="passwordList" class="mb-4">
+                <h2>Your Saved Passwords</h2>
+                <ul class="list-group" id="passwordItems"></ul>
+                <button class="btn btn-primary mt-3" id="showAddPasswordForm">Add New Password</button>
+            </div>
+            <form id="addPasswordForm" class="card p-4" style="display:none;">
+                <h3>Add New Password</h3>
+                <div class="mb-3">
+                    <label for="website" class="form-label">Website</label>
+                    <input type="text" id="website" class="form-control" placeholder="e.g., example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordUsername" class="form-label">Username</label>
+                    <input type="text" id="passwordUsername" class="form-control" placeholder="Your username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="btn btn-secondary">Save Password</button>
+            </form>
+        </section>
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Passave. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('usernameDisplay').textContent = user.username;
+            loadPasswords(user.id);
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById('showAddPasswordForm').addEventListener('click', () => {
+            document.getElementById('addPasswordForm').style.display = 'block';
+        });
+
+        document.getElementById('addPasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const user = JSON.parse(localStorage.getItem('user'));
+            const website = document.getElementById('website').value;
+            const passwordUsername = document.getElementById('passwordUsername').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/add-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: user.id, website, username: passwordUsername, password }),
+                });
+                if (response.ok) {
+                    alert('Password saved successfully!');
+                    document.getElementById('addPasswordForm').reset();
+                    document.getElementById('addPasswordForm').style.display = 'none';
+                    loadPasswords(user.id);
+                } else {
+                    const error = await response.json();
+                    alert(`Failed to save password: ${error.error}`);
+                }
+            } catch (error) {
+                alert('An error occurred.');
+            }
+        });
+
+        async function loadPasswords(userId) {
+            try {
+                const response = await fetch(`http://localhost:3000/get-passwords/${userId}`);
+                if (response.ok) {
+                    const passwords = await response.json();
+                    const passwordItems = document.getElementById('passwordItems');
+                    passwordItems.innerHTML = '';
+                    passwords.forEach(pwd => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                        li.innerHTML = `
+                            <div>
+                                <h5>${pwd.website}</h5>
+                                <p class="mb-1">Username: ${pwd.username}</p>
+                                <p class="mb-0">Password: <span class="fw-bold">${pwd.password}</span></p>
+                            </div>
+                            <button class="btn btn-danger btn-sm" onclick="deletePassword(${pwd.id})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        `;
+                        passwordItems.appendChild(li);
+                    });
+                } else {
+                    alert('Failed to load passwords.');
+                }
+            } catch (error) {
+                alert('An error occurred.');
+            }
+        }
+
+        async function deletePassword(passwordId) {
+            if (!confirm('Are you sure you want to delete this password?')) return;
+            try {
+                const response = await fetch(`http://localhost:3000/delete-password/${passwordId}`, {
+                    method: 'DELETE',
+                });
+                if (response.ok) {
+                    alert('Password deleted successfully!');
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    loadPasswords(user.id);
+                } else {
+                    alert('Failed to delete password.');
+                }
+            } catch (error) {
+                alert('An error occurred.');
+            }
+        }
+    </script>
+</body>
+</html>
