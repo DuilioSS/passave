@@ -1,0 +1,6 @@
+/* public/css/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DaisyUI non richiede import extra, è già incluso come plugin */

@@ -1,0 +1,175 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Passave API",
+      "version": "1.0.0",
+      "description": "API Documentation for the Passave Password Manager"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "paths": {
+      "/login": {
+        "post": {
+          "summary": "Login",
+          "description": "Effettua il login dell'utente",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": { "type": "string" },
+                    "password": { "type": "string" }
+                  },
+                  "required": ["username", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login effettuato con successo"
+            },
+            "401": {
+              "description": "Credenziali errate"
+            }
+          }
+        }
+      },
+      "/logout": {
+        "get": {
+          "summary": "Logout",
+          "description": "Termina la sessione utente",
+          "responses": {
+            "200": {
+              "description": "Logout avvenuto con successo"
+            }
+          }
+        }
+      },
+      "/home": {
+        "get": {
+          "summary": "Home",
+          "description": "Ritorna la homepage basata sul ruolo dell'utente (admin o user)",
+          "responses": {
+            "200": {
+              "description": "Pagina home"
+            },
+            "401": {
+              "description": "Non autorizzato"
+            }
+          }
+        }
+      },
+      "/user/passwords": {
+        "get": {
+          "summary": "Lista Password",
+          "description": "Ritorna la lista delle password dell'utente loggato",
+          "responses": {
+            "200": {
+              "description": "Lista delle password dell'utente"
+            },
+            "401": {
+              "description": "Non autorizzato"
+            }
+          }
+        },
+        "post": {
+          "summary": "Aggiungi Password",
+          "description": "Aggiunge una nuova password per l'utente loggato",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nomeSito": { "type": "string" },
+                    "userSito": { "type": "string" },
+                    "passSito": { "type": "string" }
+                  },
+                  "required": ["nomeSito", "userSito", "passSito"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Password aggiunta con successo"
+            },
+            "401": {
+              "description": "Non autorizzato"
+            }
+          }
+        }
+      },
+      "/user/passwords/edit/{id}": {
+        "post": {
+          "summary": "Modifica Password",
+          "description": "Modifica la password con l'ID specificato",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "integer" },
+              "description": "ID della password da modificare"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nomeSito": { "type": "string" },
+                    "userSito": { "type": "string" },
+                    "passSito": { "type": "string" }
+                  },
+                  "required": ["nomeSito", "userSito", "passSito"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Password modificata con successo"
+            },
+            "401": {
+              "description": "Non autorizzato o password non trovata"
+            }
+          }
+        }
+      },
+      "/api/generate-password": {
+        "get": {
+          "summary": "Genera Password Sicura",
+          "description": "Genera una password sicura utilizzando l'API esterna",
+          "responses": {
+            "200": {
+              "description": "Password generata con successo",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "password": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore interno del server"
+            }
+          }
+        }
+      }
+    }
+  }
+  

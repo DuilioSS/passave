@@ -1,0 +1,68 @@
+<!-- views/user/home.hbs -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>User Home - Passave</title>
+  <link href="/static/css/output.css" rel="stylesheet">
+  <!-- Socket.io client -->
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body class="bg-base-200 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="navbar bg-base-100 shadow-lg px-4">
+    <div class="flex-1">
+      <a class="btn btn-ghost normal-case text-xl">Passave (User)</a>
+    </div>
+    <div class="flex-none space-x-4">
+      <!-- Pulsante per Swagger Docs -->
+      <a href="/api-docs" class="btn btn-secondary">Swagger Docs</a>
+      <!-- Logout -->
+      <a href="/logout" class="btn">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Contenuto principale -->
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Benvenuto {{name}}!</h1>
+    <p class="mb-4">{{message}}</p>
+
+    <!-- Sezione dove mostriamo il numero di utenti connessi -->
+    <div class="alert alert-info shadow-lg w-full md:w-1/2 mb-4">
+      <div>
+        <span>Utenti connessi: <span id="user-count" class="font-bold">0</span></span>
+      </div>
+    </div>
+
+    <a href="/user/passwords" class="btn btn-primary">Le tue password</a>
+
+    <!-- Sezione per eventuali notifiche -->
+    <div id="notifications" class="mt-6"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const socket = io(); // Connessione al server WebSocket
+      const userId = {{userId}}; // Passato dal server
+
+      // Unisciti alla stanza dedicata all'utente, se serve
+      socket.emit('join_user_room', userId);
+
+      // Ricevi in tempo reale il numero di utenti connessi
+      socket.on('update_user_count', (count) => {
+        document.getElementById('user-count').textContent = count;
+      });
+
+      // Se hai altre notifiche personalizzate, ad es. "user_notification"
+      socket.on('user_notification', (msg) => {
+        const notiDiv = document.getElementById('notifications');
+        const alertBox = document.createElement('div');
+        alertBox.className = "alert alert-success shadow-lg mt-4";
+        alertBox.innerHTML = `<div><span>${msg}</span></div>`;
+        notiDiv.appendChild(alertBox);
+      });
+    });
+  </script>
+</body>
+</html>

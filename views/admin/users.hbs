@@ -1,0 +1,61 @@
+<!-- views/admin/users.hbs -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestione Utenti - Admin</title>
+  <link href="/static/css/output.css" rel="stylesheet">
+</head>
+<body class="bg-base-200 min-h-screen flex flex-col">
+  <nav class="navbar bg-base-100 shadow-lg px-4">
+    <div class="flex-1">
+      <a class="btn btn-ghost normal-case text-xl">Passave Admin</a>
+    </div>
+    <div class="flex-none">
+      <a href="/home" class="btn mr-2">Home</a>
+      <a href="/logout" class="btn btn-outline">Logout</a>
+    </div>
+  </nav>
+  
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Gestione Utenti</h1>
+    <p class="mb-6">Di seguito trovi la lista di tutti gli utenti (ad eccezione delle password ovviamente!)</p>
+    
+    <div class="overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Nome</th>
+            <th>Ruolo</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.username}}</td>
+            <td>{{this.nome}}</td>
+            <td>{{this.ruolo}}</td>
+            <td>
+              {{#if (neq this.username "admin")}}
+              <form action="/admin/users/delete" method="post" class="inline">
+                <input type="hidden" name="userId" value="{{this.id}}">
+                <button type="submit" class="btn btn-error btn-sm">Elimina</button>
+              </form>
+              {{/if}}
+            </td>
+          </tr>
+          {{else}}
+          <tr>
+            <td colspan="5" class="text-center">Nessun utente trovato.</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

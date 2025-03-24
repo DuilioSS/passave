@@ -1,0 +1,54 @@
+<!-- views/admin/home.hbs -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Home - Passave</title>
+  <link href="/static/css/output.css" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body class="bg-base-200 min-h-screen flex flex-col">
+
+  <nav class="navbar bg-base-100 shadow-lg px-4">
+    <div class="flex-1">
+      <a class="btn btn-ghost normal-case text-xl">Passave (Admin)</a>
+    </div>
+    <div class="flex-none space-x-4">
+      <a href="/api-docs" class="btn btn-secondary">Swagger Docs</a>
+      <a href="/logout" class="btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Benvenuto Admin, {{name}}!</h1>
+    <p class="mb-4">Qui potrai gestire gli utenti.</p>
+
+    <!-- Contatore utenti connessi -->
+    <div class="alert alert-info shadow-lg w-full md:w-1/2 mb-4">
+      <div>
+        <span>Utenti connessi: <span id="user-count" class="font-bold">0</span></span>
+      </div>
+    </div>
+
+    <a href="/admin/users" class="btn btn-primary">Gestisci Utenti</a>
+    <p class="mt-4">{{message}}</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const socket = io();
+
+      // Aggiorna il contatore utenti
+      socket.on('update_user_count', (count) => {
+        document.getElementById('user-count').textContent = count;
+      });
+
+      // Se vuoi gestire anche le notifiche admin
+      socket.on('admin_notification', (msg) => {
+        alert(msg);
+      });
+    });
+  </script>
+</body>
+</html>
+
