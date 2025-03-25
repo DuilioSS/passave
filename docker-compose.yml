@@ -1,0 +1,10 @@
+services:
+  passave:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - SESSION_SECRET=${SESSION_SECRET}
+      - API_NINJAS_KEY=${API_NINJAS_KEY}
+      - NODE_ENV=${NODE_ENV}
