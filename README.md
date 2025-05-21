@@ -115,14 +115,3 @@ Autenticazione biometrica per dispositivi supportati, per uno strato di sicurezz
 Garantisce che le credenziali condivise siano crittografate sia a riposo che durante il trasferimento.
 
 ---
-
-## Diagrammi dei Casi d'Uso
-
-1. **Interazioni Utente**  
-   ![Diagramma Utente](https://yuml.me/a57c0442.svg)
-
-2. **Panoramica Amministratore**  
-   ![Diagramma Amministratore](https://yuml.me/ddaf9be1.svg)
-
-3. **Flusso di Supporto**  
-   ![Diagramma Supporto](https://yuml.me/06a18122.svg)
